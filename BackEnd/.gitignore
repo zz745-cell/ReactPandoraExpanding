@@ -9,6 +9,7 @@ pnpm-debug.log*
 .env
 .env.local
 .env.*.local
+PandoraBE/firebase.json
 
 # Logs
 logs/
