@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
+import { startFirebaseTokenSync } from './utils/firebaseAuth';
+
+// Initialize Firebase auth syncing (no-op if Firebase isn't configured).
+startFirebaseTokenSync();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +18,6 @@ root.render(
 );
 
 // If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
+// to capture results (for example: reportWebVitals((metric) => {/* ... */}))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

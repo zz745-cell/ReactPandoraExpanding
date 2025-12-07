@@ -1,11 +1,12 @@
 const express = require('express');
-const { login } = require('../controllers/auth.controller');
+const { login, refreshToken, logout } = require('../controllers/auth.controller');
 
 const router = express.Router();
 
-// Public route – does not require a token
+// Public routes – do not require a token
 router.post('/login', login);
+router.post('/refresh', refreshToken);
+router.post('/logout', logout);
 
 module.exports = router;
-
 

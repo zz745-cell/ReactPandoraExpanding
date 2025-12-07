@@ -8,7 +8,9 @@ const {
   deleteProduct,
 } = require('../controllers/products.controller');
 const authRoutes = require('./auth.routes');
+const firebaseUserRoutes = require('./firebase.routes');
 const { authMiddleware } = require('../middleware/auth.middleware');
+const { requireAccess } = require('../middleware/requireAccess');
 
 // In a larger app, you'd import sub-routers here, e.g.:
 // const productsRoutes = require('./products.routes');
@@ -19,16 +21,20 @@ function applyRoutes(app) {
   // Public routes (no token required)
   router.get('/', getHealth);
   router.use('/auth', authRoutes);
+  router.use('/auth/users', authMiddleware, firebaseUserRoutes);
 
   // Protect everything below with auth middleware
   router.use(authMiddleware);
 
   // Protected product CRUD routes
-  router.get('/api/products', listProducts);
-  router.get('/api/products/:id', getProduct);
-  router.post('/api/products', createProduct);
-  router.put('/api/products/:id', updateProduct);
-  router.delete('/api/products/:id', deleteProduct);
+  // Read routes: "products:read"
+  router.get('/api/products', requireAccess('products', 'read'), listProducts);
+  router.get('/api/products/:id', requireAccess('products', 'read'), getProduct);
+
+  // Write routes: "products:write"
+  router.post('/api/products', requireAccess('products', 'write'), createProduct);
+  router.put('/api/products/:id', requireAccess('products', 'write'), updateProduct);
+  router.delete('/api/products/:id', requireAccess('products', 'write'), deleteProduct);
 
   // Mount the router at root
   app.use('/', router);

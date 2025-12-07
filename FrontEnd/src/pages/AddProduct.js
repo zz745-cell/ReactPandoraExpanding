@@ -13,7 +13,7 @@ const AddProduct = () => {
     count: '',
     rate: ''
   });
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
   // validates the submitted data and dispatches the action
@@ -46,10 +46,8 @@ const AddProduct = () => {
     }
 
     setErrors(newErrors);
-    console.log(newErrors);
     if (JSON.stringify(newErrors) === "{}") {
       // Make API call or dispatch Redux action to save the product
-      console.log('Product data:', productData);
       dispatch(addNewProduct(productData));
       setProductData({
         title: '',
@@ -74,54 +72,136 @@ const AddProduct = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='form-container'>
-      <label className="form-label">
-        title:
-      </label>
-      <input type="text" name="title" value={productData.title} onChange={handleChange} className="form-input"/>
-      {errors.title && <p className="form-error">{errors.title}</p>}
+    <div className="max-w-xl mx-auto px-4 py-10">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+        <h1 className="text-xl font-bold text-gray-900">Add Product</h1>
 
-      <label className="form-label">
-        Category:
-      </label>
-        <input type="text" name="category" value={productData.category} onChange={handleChange} className="form-input"/>
-        {errors.category && <p className="form-error">{errors.category}</p>}
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">
+              Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              value={productData.title}
+              onChange={handleChange}
+              className="mt-1 w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+            />
+            {errors.title && (
+              <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+            )}
+          </div>
 
-      <label className="form-label">
-        Description:
-      </label>
-        <textarea name="description" value={productData.description} onChange={handleChange} className="form-input"></textarea>
-        {errors.description && <p className="form-error">{errors.description}</p>}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">
+              Category
+            </label>
+            <input
+              type="text"
+              name="category"
+              value={productData.category}
+              onChange={handleChange}
+              className="mt-1 w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+            />
+            {errors.category && (
+              <p className="mt-1 text-sm text-red-600">{errors.category}</p>
+            )}
+          </div>
 
-      <label className="form-label">
-        Image:
-      </label>
-        <input type="text" name="image" value={productData.image} onChange={handleChange} className="form-input"/>
-        {errors.image && <p className="form-error">{errors.image}</p>}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">
+              Description
+            </label>
+            <textarea
+              name="description"
+              value={productData.description}
+              onChange={handleChange}
+              className="mt-1 w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+              rows={4}
+            />
+            {errors.description && (
+              <p className="mt-1 text-sm text-red-600">{errors.description}</p>
+            )}
+          </div>
 
-      <label className="form-label">
-        Price:
-      </label>
-        <input type="number" name="price" value={productData.price} onChange={handleChange} className="form-input"/>
-        {errors.price && <p className="form-error">{errors.price}</p>}
-      {/* <label>
-        Quantity:
-        <input type="n" name="quantity" value={productData.quantity} onChange={handleChange} />
-      </label> */}
-      <label className="form-label">
-        Count:
-      </label>
-        <input type="number" name="count" value={productData.count} onChange={handleChange} className="form-input"/>
-        {errors.count && <p className="form-error">{errors.count}</p>}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">
+              Image URL
+            </label>
+            <input
+              type="text"
+              name="image"
+              value={productData.image}
+              onChange={handleChange}
+              className="mt-1 w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+            />
+            {errors.image && (
+              <p className="mt-1 text-sm text-red-600">{errors.image}</p>
+            )}
+          </div>
 
-      <label className="form-label">
-        Rate:
-      </label>
-        <input type="number" name="rate" value={productData.rate} onChange={handleChange} className="form-input"/>
-        {errors.rate && <p className="form-error">{errors.rate}</p>}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">
+                Price
+              </label>
+              <input
+                type="number"
+                name="price"
+                value={productData.price}
+                onChange={handleChange}
+                className="mt-1 w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+              />
+              {errors.price && (
+                <p className="mt-1 text-sm text-red-600">{errors.price}</p>
+              )}
+            </div>
 
-      <button type="submit" className="form-button">Submit</button>
-    </form>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">
+                Count
+              </label>
+              <input
+                type="number"
+                name="count"
+                value={productData.count}
+                onChange={handleChange}
+                className="mt-1 w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+              />
+              {errors.count && (
+                <p className="mt-1 text-sm text-red-600">{errors.count}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">
+                Rate
+              </label>
+              <input
+                type="number"
+                name="rate"
+                value={productData.rate}
+                onChange={handleChange}
+                className="mt-1 w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+              />
+              {errors.rate && (
+                <p className="mt-1 text-sm text-red-600">{errors.rate}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="pt-2">
+            <button
+              type="submit"
+              className="w-full px-4 py-3 rounded-md bg-gray-900 text-white font-semibold hover:bg-gray-800"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 

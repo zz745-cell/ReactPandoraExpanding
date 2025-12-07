@@ -1,21 +1,16 @@
-import React, { useState, useEffect, useDebugValue } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { actions } from '../store';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  //const [product, setProduct] = useState(null);
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.productDetails)
-console.log(product)
+  const product = useSelector((state) => state.productDetails);
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      dispatch(actions.getProductDetails(id));
-      //setProduct(productData);
-    };
-    fetchProduct();
-  }, [id]);
+    dispatch(actions.getProductDetails(id));
+  }, [dispatch, id]);
 
   const handleAddToCart = (product) => {
     // handle adding to cart logic
@@ -23,32 +18,49 @@ console.log(product)
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return (
+      <div className="max-w-5xl mx-auto px-4 py-10">
+        <div className="w-full flex justify-center py-10">
+          <div className="h-6 w-6 rounded-full border-2 border-gray-200 border-t-gray-900 animate-spin" />
+        </div>
+      </div>
+    );
   }
 
-  const { title, description, image, price, quantity, reviews, rating } = product;
+  const { title, description, image, price } = product;
 
   return (
-    // <div className="product-detail-page">
-    //   <div className="product-detail-container">
-    //     <ProductImage image={image} />
-    //     <ProductDescription name={name} description={description} price={price} rating={rating} />
-    //     <ProductAddToCart product={product} />
-    //   </div>
-    //   <ProductReviews reviews={reviews} />
-    // </div>
-    <div className="product-detail-container">
-        <div className="product-image-container">
-            <img src={image} alt="Product" />
-        </div>
-        <div className="product-info-container">
-            <h1>{title}</h1>
-            <p className="product-description"> {description} </p>
-            <div className="product-price">
-                Rs{price}
+    <div className="max-w-5xl mx-auto px-4 py-10">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+          <div className="flex items-center justify-center">
+            <img
+              src={image}
+              alt={title}
+              className="w-full max-w-md rounded-lg object-contain bg-gray-50"
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+            <p className="mt-3 text-gray-700">{description}</p>
+
+            <div className="mt-5 text-xl font-extrabold text-gray-900">
+              Rs{price}
             </div>
-            <button className="add-to-cart-button" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+
+            <div className="mt-6">
+              <button
+                type="button"
+                className="px-4 py-3 rounded-md bg-gray-900 text-white font-semibold hover:bg-gray-800"
+                onClick={() => handleAddToCart(product)}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   );
 };

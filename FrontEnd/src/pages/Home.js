@@ -15,6 +15,8 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
+
+    
     // only fetch from API if we don't already have products in state
     if (!products || products.length === 0) {
       dispatch(fetchProducts());
@@ -29,14 +31,13 @@ const Home = () => {
 
   // dispatches a updtae function to do changes in the database
   const handleUpdateProduct = (id) => {
-    //console.log(editProductValue);
     dispatch(updateProduct(id, editProductValue));
     setEditingProduct(null);
     setEditProductValue(null);
   };
 
   // set the edit state to remove the edit fields
-  const handleCancleProduct = (product) => {
+  const handleCancleProduct = () => {
     setEditingProduct(null);
     setEditProductValue(null)
   };
@@ -92,38 +93,54 @@ const Home = () => {
   });
 
   return (
-    <>
-      <div className="product-sort-container">
-        <div className="product-search">
+    <div className="max-w-6xl mx-auto px-4 pb-10">
+      <div className="flex flex-col gap-3 items-end mb-4">
+        <div className="w-full flex justify-start">
           <input
             type="text"
             placeholder="Search products..."
             value={searchTerm}
             onChange={handleSearchChange}
+            className="w-full sm:w-72 px-3 py-2 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
           />
         </div>
-        <div className='product-sort'>
-          <button type="button" onClick={handleRefresh}>
+
+        <div className="w-full flex items-center justify-between">
+          <button
+            type="button"
+            onClick={handleRefresh}
+            className="px-3 py-2 rounded-md border border-gray-300 bg-white text-sm hover:bg-gray-50"
+          >
             Refresh
           </button>
-          <div className="sort-segment-group">
+
+          <div className="inline-flex rounded-full border border-gray-300 overflow-hidden bg-gray-50">
             <button
               type="button"
-              className={`sort-segment ${sort.field === 'price' && sort.direction === 'asc' ? 'active' : ''}`}
+              className={`px-4 py-2 text-sm transition ${sort.field === 'price' && sort.direction === 'asc'
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-700 hover:bg-gray-100'
+                }`}
               onClick={handleSortByPriceAsc}
             >
               Price ↑
             </button>
             <button
               type="button"
-              className={`sort-segment ${sort.field === 'price' && sort.direction === 'desc' ? 'active' : ''}`}
+              className={`px-4 py-2 text-sm border-l border-gray-200 transition ${sort.field === 'price' && sort.direction === 'desc'
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-700 hover:bg-gray-100'
+                }`}
               onClick={handleSortByPriceDesc}
             >
               Price ↓
             </button>
             <button
               type="button"
-              className={`sort-segment ${sort.field === 'description' ? 'active' : ''}`}
+              className={`px-4 py-2 text-sm border-l border-gray-200 transition ${sort.field === 'description'
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-700 hover:bg-gray-100'
+                }`}
               onClick={handleSortByDescription}
             >
               Description
@@ -131,135 +148,178 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className={`product-list ${isLoading ? 'is-loading' : ''}`}>
+
       {isLoading ? (
-        <div className="product-list-loading">
-          <div className="spinner" />
+        <div className="w-full flex justify-center py-10">
+          <div className="h-6 w-6 rounded-full border-2 border-gray-200 border-t-gray-900 animate-spin" />
         </div>
       ) : (
-      <ul>
-        {filteredProducts.map((product) => (
-          <li key={product.id} className="product">
-            <img src={product.image} alt={product.title} />
-            <div className="product-info">
-            {/* title */}
-            {editingProduct === product ? (
-              <input
-              type="text"
-              className="form-input"
-              value={editProductValue.title}
-              onChange={(e) => {
-                  const newProduct = { ...editProductValue };
-                  newProduct.title = e.target.value;
-                  //handleUpdateProduct(product.id, newProduct);
-                  setEditProductValue(newProduct);
-                }}
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {filteredProducts.map((product) => (
+            <li
+              key={product.id}
+              className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden flex gap-3 p-3"
+            >
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-32 h-24 object-cover rounded-md bg-gray-100"
               />
-            ) : (
-              <Link to={`/product/${product.id}`}>
-                <h3>{product.title}</h3>
-              </Link>
-            )}
-
-            {/* category */}
-            {editingProduct === product ? (
-              <input
-                type="text"
-                className="form-input"
-                value={editProductValue.category}
-                onChange={(e) => {
-                  const newProduct = { ...editProductValue };
-                  newProduct.category = e.target.value;
-                  //handleUpdateProduct(product.id, newProduct);
-                  setEditProductValue(newProduct);
-                }}
-              />
-            ) : (
-              <p className="price">{product.category}</p>
-            )}
-
-            {/* description */}
-            {editingProduct === product ? (
-              <textarea
-                className="form-input"
-                value={editProductValue.description}
-                onChange={(e) => {
-                  const newProduct = { ...editProductValue };
-                  newProduct.description = e.target.value;
-                  //handleUpdateProduct(product.id, newProduct);
-                  setEditProductValue(newProduct);
-                }}
-              ></textarea>
-            ) : (
-              <p>{product.description}</p>
-            )}
-
-            {/* price */}
-            {editingProduct === product ? (
-              <input
-                type="text"
-                value={editProductValue.price}
-                onChange={(e) => {
-                  const newProduct = { ...editProductValue };
-                  newProduct.price = e.target.value;
-                  //handleUpdateProduct(product.id, newProduct);
-                  setEditProductValue(newProduct);
-                }}
-              />
-            ) : (
-              <p className="price">Rs{product.price}</p>
-            )}
-
-            {/* rating */}
-            {editingProduct === product ? (
-              <input
-              type="text"
-                value={editProductValue.rating.rate}
-                onChange={(e) => {
-                  const newProduct = { ...editProductValue };
-                  console.log(newProduct);
-                  newProduct.rating = {
-                    ...newProduct.rating,
-                    rate: e.target.value
-                  };
-                  setEditProductValue(newProduct);
-                  //handleUpdateProduct(product.id, newProduct);
-                }}
-                />
+              <div className="flex-1 min-w-0">
+                {/* title */}
+                {editingProduct === product ? (
+                  <input
+                    type="text"
+                    value={editProductValue.title}
+                    onChange={(e) => {
+                      const newProduct = { ...editProductValue };
+                      newProduct.title = e.target.value;
+                      setEditProductValue(newProduct);
+                    }}
+                    className="w-full px-3 py-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                  />
                 ) : (
-                  <p className="price">rating: {product.rating.rate}</p>
-                  )}  
-  
-            {editingProduct === product ? (<>
-                        <button onClick={() => handleCancleProduct()}>
-                          cancle
-                        </button>
+                  <Link
+                    to={`/product/${product.id}`}
+                    className="block truncate font-semibold text-gray-900 hover:text-gray-700"
+                  >
+                    {product.title}
+                  </Link>
+                )}
 
-                        <button onClick={(e) => handleUpdateProduct(product.id)}>
-                          update
-                        </button>
-                   </>
-              ) : (
-              <>
-                  <button onClick={() => handleAddToCart(product)}>
-                      Add To Cart
-                  </button>
-                  <button onClick={() => handleEditProduct(product)}>
-                    <i className="fa-regular fa-pen-to-square"></i>
-                  </button>
+                {/* category */}
+                <div className="mt-2">
+                  {editingProduct === product ? (
+                    <input
+                      type="text"
+                      value={editProductValue.category}
+                      onChange={(e) => {
+                        const newProduct = { ...editProductValue };
+                        newProduct.category = e.target.value;
+                        setEditProductValue(newProduct);
+                      }}
+                      className="w-full px-3 py-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                    />
+                  ) : (
+                    <p className="text-xs font-semibold text-gray-600">
+                      {product.category}
+                    </p>
+                  )}
+                </div>
 
-                  <button onClick={() => handleDeleteProduct(product.id)}>
-                    <i className="fa-regular fa-trash-can"></i>
-                  </button>
-              </>
-            )}
-            </div>
-        </li>
-        ))}
+                {/* description */}
+                <div className="mt-2">
+                  {editingProduct === product ? (
+                    <textarea
+                      value={editProductValue.description}
+                      onChange={(e) => {
+                        const newProduct = { ...editProductValue };
+                        newProduct.description = e.target.value;
+                        setEditProductValue(newProduct);
+                      }}
+                      className="w-full px-3 py-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                      rows={3}
+                    />
+                  ) : (
+                    <p className="text-sm text-gray-700 overflow-hidden max-h-20">
+                      {product.description}
+                    </p>
+                  )}
+                </div>
+
+                {/* price + rating */}
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  {editingProduct === product ? (
+                    <input
+                      type="text"
+                      value={editProductValue.price}
+                      onChange={(e) => {
+                        const newProduct = { ...editProductValue };
+                        newProduct.price = e.target.value;
+                        setEditProductValue(newProduct);
+                      }}
+                      className="w-28 px-3 py-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                    />
+                  ) : (
+                    <p className="text-sm font-bold text-gray-900">
+                      Rs{product.price}
+                    </p>
+                  )}
+
+                  {editingProduct === product ? (
+                    <input
+                      type="text"
+                      value={editProductValue.rating.rate}
+                      onChange={(e) => {
+                        const newProduct = { ...editProductValue };
+                        newProduct.rating = {
+                          ...newProduct.rating,
+                          rate: e.target.value,
+                        };
+                        setEditProductValue(newProduct);
+                      }}
+                      className="w-24 px-3 py-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10"
+                    />
+                  ) : (
+                    <p className="text-xs font-semibold text-gray-600">
+                      rating: {product.rating.rate}
+                    </p>
+                  )}
+                </div>
+
+                {/* actions */}
+                <div className="mt-3 flex items-center gap-2">
+                  {editingProduct === product ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handleCancleProduct}
+                        className="px-3 py-2 rounded-md border border-gray-300 text-sm hover:bg-gray-50"
+                      >
+                        cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleUpdateProduct(product.id)}
+                        className="px-3 py-2 rounded-md bg-gray-900 text-white text-sm hover:bg-gray-800"
+                      >
+                        update
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleAddToCart(product)}
+                        className="px-3 py-2 rounded-md bg-gray-900 text-white text-sm hover:bg-gray-800"
+                      >
+                        Add To Cart
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleEditProduct(product)}
+                        className="px-3 py-2 rounded-md border border-gray-300 text-sm hover:bg-gray-50"
+                        aria-label="Edit product"
+                      >
+                        <i className="fa-regular fa-pen-to-square"></i>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteProduct(product.id)}
+                        className="px-3 py-2 rounded-md border border-red-200 text-red-600 text-sm hover:bg-red-50"
+                        aria-label="Delete product"
+                      >
+                        <i className="fa-regular fa-trash-can"></i>
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
         </ul>
       )}
-      </div>
-    </>
+    </div>
   )
 }
 

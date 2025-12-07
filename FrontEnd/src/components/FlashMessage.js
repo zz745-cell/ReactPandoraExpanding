@@ -21,9 +21,18 @@ const FlashMessage = ({ message, onClose }) => {
 
   return (
     visible && (
-      <div className="flash-message">
-        <p>{message}</p>
-        <button onClick={handleClose}>x</button>
+      <div className="fixed top-24 right-4 z-[60]">
+        <div className="flex items-center gap-3 rounded-md bg-slate-700 text-white px-4 py-2 shadow-lg border border-slate-600">
+          <p className="text-sm">{message}</p>
+          <button
+            type="button"
+            onClick={handleClose}
+            className="text-white/80 hover:text-white text-sm"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
       </div>
     )
   );

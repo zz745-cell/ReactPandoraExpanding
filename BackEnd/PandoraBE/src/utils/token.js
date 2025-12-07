@@ -1,17 +1,39 @@
 const jwt = require('jsonwebtoken');
 const { config } = require('../config/config');
 
-function signToken(payload, options = {}) {
+function signAccessToken(payload, options = {}) {
   return jwt.sign(payload, config.jwtSecret, {
-    expiresIn: '1h',
+    expiresIn: config.accessTokenExpiresIn,
     ...options,
   });
 }
 
-function verifyToken(token) {
+function verifyAccessToken(token) {
   return jwt.verify(token, config.jwtSecret);
 }
 
-module.exports = { signToken, verifyToken };
+function signRefreshToken(payload, options = {}) {
+  return jwt.sign(payload, config.refreshJwtSecret, {
+    expiresIn: config.refreshTokenExpiresIn,
+    ...options,
+  });
+}
+
+function verifyRefreshToken(token) {
+  return jwt.verify(token, config.refreshJwtSecret);
+}
+
+// Backwards-compatible aliases (older code/tests may still call these)
+const signToken = signAccessToken;
+const verifyToken = verifyAccessToken;
+
+module.exports = {
+  signAccessToken,
+  verifyAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+  signToken,
+  verifyToken,
+};
 
 

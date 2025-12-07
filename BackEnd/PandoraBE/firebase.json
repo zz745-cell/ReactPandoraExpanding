@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "econmicro-b7e4b",
+  "private_key_id": "fdb81f9825a7e652c7a0cc804e3a2284948cdd4a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCfZVw7G6n1X8J5\ndYEtaozueHRSgQUR7pv2up8643z5R3AGVfdY//7sk030Ltjbq6ehizTmhuva9wCI\nE2feIElXl2W1kGMONjXDPdIyFbBOjssFzKf4i3osqCv27ux50bRjGbENioendL3d\niJUctquPQIHi/67ioTNYDhpgwvMYH9TULeA60dh2Q1P8FiAz2kL0g4hjZxXeROrL\n2mM0Kn0GrKQVamcouymXSp5SgS6ZhBsZUr+BhGZxwHx6b0Z42Y+jpqwiQKOelZmK\n/EwTCwxJP/a3q1E6bV+X5PYSK8mWL8ZjCT1kGICdZgBt7zBMSK2D9IrDJ5Cvo2p1\ngwC0Y3CfAgMBAAECggEALq7G9mDBxCWJlXz+mkiMggMxPkCfNYNGllpN7DdYEMIF\nYzWmPaCsDqmNuShHRv7dF4jns2RsizKwKypTz1Bxan/iv+xLtovV7xqaByUm/7r+\nZvJrd3WSEKYoSifrhjoOtL9/hVG/LSIZwVoRIdm2ITxpTgxIMgO4P9/RhelSvQuO\n7s+ZL1ufdalM60GzXq/qhpE9IZ7b0LpftJSYKBvfA4kj2OP/MbDzmwrlyFYYWuDR\nzvBp45H+jfx35doc0ixih5eoIAHZd1owVj2VyRXH8ZJBd1tRv8U+GXPZfU9xPdQ9\n3KN2kgike353leRBDU2ZaR+MOw+ntRW3nZld3rW/0QKBgQDZAZlujy5p8mfAKYop\nS4GW+uLIvNxOrqMj3/uC/Q4cG15/aDOVk+W6KHCMEAOdpvC9jk2L5BcVhgak/SU5\nJ6JF9uVJxomCsK9rQh/ojc8hc9Ln6eI0/MgiY54JFcLb9P6jstOi0woN4St/LHOs\nw/i1yQYr61Mgzy/0Xc+/Sy5+cwKBgQC8Cagagq522OMy4MhtqNe8PYut7UjKqMmL\nLu11DWrePwk5KaDgmoN47ezCboGBP+rgfm0/8GNI3X6ZHnWhR5jNXp8wzPN5eWn8\nczH2OVl1oeMiXJ6n1936gebo6njK4cCZCJe5mKtX+nmu/6aU0uMSIPoW5HmtrEF2\nh0uagSOuJQKBgQC3fKi1WQ/PuY2MaBNQc22xsZVMUpSdWwDKdrr9uObTUTkH1Z24\nXgOi8kqnw2qrRNrODKL5I/V414iKvRlaSG7nZaneRadEAA1zTcgZJL789Chiu9nv\nH8ZBfaXE3MeUoIUm+TAFvxgDQF88+uMcM9/6JW24eRQi680KfMAKaZF4jQKBgGqq\nL6maJ81TCs55pDhQZtBpOSrYR0pupKVHYXvcuJqJt3mtm4zNGXcnv/4rIVtoHpxq\nGx8CBc/3lTDWjnOGYa9d1X+hQxvNO8nwro61yYFo66c6UuVzFoBb39iP6SVtGgu1\nTBwD9m5Zr10NuDkDx7so6bTCtiNGa3wJE2H5j3vhAoGAboM4P3a1j6wvz9Hxm1nQ\nAIshCwkeeWqnMhrR9tkMB5JmqyWjWhtYloZd/Aa41np5PvIZmxS5PvmL41J5xlbd\nLvoqYoG0y+lWOw79Do2plH7YvrORb8xVqDHgvVncSOBzUfbyE3X6eLHHah9EMJD8\nE3yYlguUXIeKimpGalQO7uk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@econmicro-b7e4b.iam.gserviceaccount.com",
+  "client_id": "117141109161198246053",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40econmicro-b7e4b.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -13,14 +13,19 @@ function Layout() {
     }
 
     return (
-      <>    <div style={{position: "fixed", width: "100%", top:0}}>
-             <Navbar></Navbar>
-            </div>
-            {flashMessage && <FlashMessage message={flashMessage} onClose={handleFlashClose} />}
-            <div style={{marginTop:"100px"}}>
-              <Outlet></Outlet>
-            </div>
-      </>
+      <div className="min-h-screen bg-gray-50">
+        <div className="fixed top-0 inset-x-0 z-50">
+          <Navbar />
+        </div>
+
+        {flashMessage && (
+          <FlashMessage message={flashMessage} onClose={handleFlashClose} />
+        )}
+
+        <main className="pt-24">
+          <Outlet />
+        </main>
+      </div>
     );
   }
   
